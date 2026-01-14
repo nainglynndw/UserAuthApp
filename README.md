@@ -1,6 +1,16 @@
 # User Authentication App - Bare React Native
 
+[![Android Build](https://github.com/nainglynndw/UserAuthApp/actions/workflows/android_build.yml/badge.svg)](https://github.com/nainglynndw/UserAuthApp/actions/workflows/android_build.yml)
+
 A **production-grade** React Native authentication app built with **bare React Native CLI**
+
+## 📱 Screenshots
+
+<p align="center">
+  <img src="screenshots/login.png" width="250" alt="Login Screen" />
+  <img src="screenshots/signup.png" width="250" alt="Signup Screen" />
+  <img src="screenshots/home.png" width="250" alt="Home Screen" />
+</p>
 
 ## 🏗️ Architecture
 
@@ -12,6 +22,8 @@ A **production-grade** React Native authentication app built with **bare React N
 - **Custom Hooks** - Logic separated from presentation
 - **One Component Per File** - Single responsibility principle
 - **TypeScript** - Full type safety
+- **Smooth Animations** - Native Animated API
+- **CI/CD** - GitHub Actions for automated builds
 
 ### 📁 Structure
 ```
@@ -88,6 +100,8 @@ npm run android
 - ✅ Password visibility toggle
 - ✅ Form validation
 - ✅ Loading states
+- ✅ Smooth fade-in animations
+- ✅ Button press animations
 - ✅ Modern dark theme UI
 
 ## 🧪 Test Credentials
@@ -95,11 +109,21 @@ npm run android
 - **Email:** john@example.com
 - **Password:** password123
 
-### Separated Concerns
-- ✅ Utils for business logic
-- ✅ Hooks for component logic
-- ✅ Styles in separate files
-- ✅ One component per file
+## 🤖 CI/CD
+
+This project uses GitHub Actions for continuous integration:
+
+- **Automated Builds:** Every push triggers an Android build
+- **TypeScript Validation:** Code is type-checked before building
+- **APK Artifacts:** Download the latest APK from [GitHub Actions](https://github.com/nainglynndw/UserAuthApp/actions)
+
+### Download APK from CI
+
+1. Go to [Actions](https://github.com/nainglynndw/UserAuthApp/actions)
+2. Click on the latest successful workflow run
+3. Scroll down to **Artifacts**
+4. Download `app-debug.apk`
+5. Install on your Android device
 
 ## 📦 Dependencies
 
@@ -119,6 +143,14 @@ npm run android
 **Icons:**
 - `react-native-vector-icons`
 
+## 🎨 Design
+
+- Modern dark theme with vibrant purple accents
+- Smooth animations using React Native's Animated API
+- Glassmorphism effects
+- Responsive layouts
+- Clean, minimal UI
+
 ## 🔐 Security
 
 This is a demo with mock authentication. For production:
@@ -127,13 +159,17 @@ This is a demo with mock authentication. For production:
 - Never store passwords client-side
 - Implement proper session management
 
-## 📊 Git
+## 📊 Development
 
 ```bash
-git add .
-git commit -m "Production-ready bare React Native auth app"
-git remote add origin <your-repo>
-git push -u origin main
+# Type check
+npx tsc --noEmit
+
+# Clean Android build
+cd android && ./gradlew clean && cd ..
+
+# Clean iOS build
+cd ios && pod install && cd ..
 ```
 
 ---
