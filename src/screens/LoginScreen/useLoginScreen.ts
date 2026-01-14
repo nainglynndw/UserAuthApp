@@ -3,10 +3,6 @@ import { Alert } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { validateLoginForm } from '../../utils/validation';
 
-/**
- * Custom hook for LoginScreen logic
- * Separates business logic from UI
- */
 export const useLoginScreen = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');

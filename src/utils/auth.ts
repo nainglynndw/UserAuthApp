@@ -1,24 +1,13 @@
-/**
- * Authentication business logic
- * Mock user database and credential checking
- * In production, this would be replaced with API calls
- */
-
 import { User } from '../types';
 
-// Mock user database - in production, this would be an API
 const MOCK_USERS: User[] = [
   { id: '1', name: 'John Doe', email: 'john@example.com' },
 ];
 
-// Mock passwords - in production, handled by backend
 const MOCK_PASSWORDS: Record<string, string> = {
   'john@example.com': 'password123',
 };
 
-/**
- * Checks if user credentials are valid
- */
 export const verifyCredentials = (
   email: string,
   password: string
@@ -36,16 +25,10 @@ export const verifyCredentials = (
   return { success: true, user };
 };
 
-/**
- * Checks if email already exists
- */
 export const checkEmailExists = (email: string): boolean => {
   return MOCK_USERS.some(u => u.email === email);
 };
 
-/**
- * Creates a new user account
- */
 export const createUser = (
   name: string,
   email: string,
@@ -61,7 +44,6 @@ export const createUser = (
     email,
   };
   
-  // Add to mock database
   MOCK_USERS.push(newUser);
   MOCK_PASSWORDS[email] = password;
   

@@ -3,10 +3,6 @@ import { Alert } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { validateSignupForm } from '../../utils/validation';
 
-/**
- * Custom hook for SignupScreen logic
- * Separates business logic from UI
- */
 export const useSignupScreen = () => {
   const { signup } = useAuth();
   const [name, setName] = useState('');

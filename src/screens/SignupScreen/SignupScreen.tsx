@@ -7,6 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import Animated, {
+  FadeInDown,
+  FadeIn,
+} from 'react-native-reanimated';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
@@ -42,12 +46,12 @@ export const SignupScreen: React.FC<Props> = ({ navigation }) => {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.header}>
+        <Animated.View entering={FadeIn.duration(600)} style={styles.header}>
           <Text style={styles.title}>Create Account</Text>
           <Text style={styles.subtitle}>Sign up to get started</Text>
-        </View>
+        </Animated.View>
 
-        <View style={styles.form}>
+        <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.form}>
           <Input
             label="Name"
             placeholder="Enter your name"
@@ -93,7 +97,7 @@ export const SignupScreen: React.FC<Props> = ({ navigation }) => {
               <Text style={styles.linkText}>Login</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

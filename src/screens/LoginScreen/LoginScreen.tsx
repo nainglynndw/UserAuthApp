@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import Animated, {
+  FadeInDown,
+  FadeIn,
+} from 'react-native-reanimated';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
@@ -40,12 +44,12 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.header}>
+        <Animated.View entering={FadeIn.duration(600)} style={styles.header}>
           <Text style={styles.title}>Welcome Back</Text>
           <Text style={styles.subtitle}>Sign in to continue</Text>
-        </View>
+        </Animated.View>
 
-        <View style={styles.form}>
+        <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.form}>
           <Input
             label="Email"
             placeholder="Enter your email"
@@ -81,7 +85,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
               <Text style={styles.linkText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

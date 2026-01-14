@@ -4,6 +4,7 @@ import {
   Text,
   Alert,
 } from 'react-native';
+import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/Button/Button';
@@ -45,14 +46,14 @@ export const HomeScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.header}>
+        <Animated.View entering={FadeIn.duration(600)} style={styles.header}>
           <View style={styles.avatarContainer}>
           <Icon name="person" size={48} color={colors.primary} />
           </View>
           <Text style={styles.welcomeText}>Welcome!</Text>
-        </View>
+        </Animated.View>
 
-        <View style={styles.card}>
+        <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.card}>
           <View style={styles.infoRow}>
             <Icon name="person-outline" size={24} color={colors.primary} />
             <View style={styles.infoContent}>
@@ -70,15 +71,17 @@ export const HomeScreen: React.FC = () => {
               <Text style={styles.value}>{user?.email}</Text>
             </View>
           </View>
-        </View>
+        </Animated.View>
 
-        <Button
-          title="Logout"
-          onPress={handleLogout}
-          loading={loading}
-          variant="outline"
-          style={styles.logoutButton}
-        />
+        <Animated.View entering={FadeInDown.delay(400).duration(600)}>
+          <Button
+            title="Logout"
+            onPress={handleLogout}
+            loading={loading}
+            variant="outline"
+            style={styles.logoutButton}
+          />
+        </Animated.View>
       </View>
     </SafeAreaView>
   );

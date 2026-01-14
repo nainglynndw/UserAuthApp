@@ -1,11 +1,11 @@
 # User Authentication App - Bare React Native
 
-A **production-grade** React Native authentication app built with **bare React Native CLI** (no Expo), featuring staff engineer-level architecture.
+A **production-grade** React Native authentication app built with **bare React Native CLI**
 
 ## 🏗️ Architecture
 
 ### ✅ Production Standards
-- **Bare React Native CLI** - No Expo, production-ready
+- **Bare React Native CLI** - No Expo
 - **No Barrel Files** - Direct imports for better tree-shaking
 - **Separated Styles** - Each component has `.styles.ts` file
 - **Utils Layer** - Business logic separated from UI

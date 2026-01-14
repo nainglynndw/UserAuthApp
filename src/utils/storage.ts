@@ -1,8 +1,3 @@
-/**
- * AsyncStorage wrapper utilities
- * Centralized storage operations with error handling
- */
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { User } from '../types';
 
@@ -10,9 +5,6 @@ const STORAGE_KEYS = {
   USER_SESSION: '@user_session',
 } as const;
 
-/**
- * Saves user session to AsyncStorage
- */
 export const saveUserSession = async (user: User): Promise<void> => {
   try {
     const jsonValue = JSON.stringify(user);
@@ -23,9 +15,6 @@ export const saveUserSession = async (user: User): Promise<void> => {
   }
 };
 
-/**
- * Loads user session from AsyncStorage
- */
 export const loadUserSession = async (): Promise<User | null> => {
   try {
     const jsonValue = await AsyncStorage.getItem(STORAGE_KEYS.USER_SESSION);
@@ -36,9 +25,6 @@ export const loadUserSession = async (): Promise<User | null> => {
   }
 };
 
-/**
- * Removes user session from AsyncStorage
- */
 export const clearUserSession = async (): Promise<void> => {
   try {
     await AsyncStorage.removeItem(STORAGE_KEYS.USER_SESSION);
