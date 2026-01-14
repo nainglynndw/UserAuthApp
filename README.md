@@ -95,18 +95,6 @@ npm run android
 - **Email:** john@example.com
 - **Password:** password123
 
-## 🎯 Staff Engineer Standards
-
-### No Expo
-- ❌ Removed all Expo dependencies
-- ✅ Using bare React Native CLI
-- ✅ Native modules configured properly
-
-### No Barrel Files
-- ❌ No `index.ts` exports
-- ✅ Direct imports only
-- ✅ Better tree-shaking
-
 ### Separated Concerns
 - ✅ Utils for business logic
 - ✅ Hooks for component logic
@@ -129,7 +117,7 @@ npm run android
 - `@react-native-async-storage/async-storage`
 
 **Icons:**
-- `react-native-vector-icons` (not Expo!)
+- `react-native-vector-icons`
 
 ## 🔐 Security
 
