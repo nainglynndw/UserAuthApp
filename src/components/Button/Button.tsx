@@ -4,12 +4,8 @@ import {
   Text,
   ActivityIndicator,
   TouchableOpacityProps,
+  Animated,
 } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
 import { colors } from '../../constants/theme';
 import { styles } from './Button.styles';
 
@@ -19,8 +15,6 @@ interface ButtonProps extends TouchableOpacityProps {
   variant?: 'primary' | 'secondary' | 'outline';
 }
 
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
 export const Button: React.FC<ButtonProps> = ({
   title,
   loading = false,
@@ -29,18 +23,20 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   ...props
 }) => {
-  const scale = useSharedValue(1);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
+  const scale = React.useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
-    scale.value = withSpring(0.95);
+    Animated.spring(scale, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
   };
 
   const handlePressOut = () => {
-    scale.value = withSpring(1);
+    Animated.spring(scale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
   };
 
   const getButtonStyle = () => {
@@ -59,24 +55,27 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <AnimatedTouchable
-      style={[
-        styles.button,
-        getButtonStyle(),
-        (disabled || loading) && styles.disabledButton,
-        animatedStyle,
-        style,
-      ]}
-      disabled={disabled || loading}
+    <TouchableOpacity
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      disabled={disabled || loading}
       {...props}
     >
-      {loading ? (
-        <ActivityIndicator color={variant === 'outline' ? colors.primary : colors.white} />
-      ) : (
-        <Text style={getTextStyle()}>{title}</Text>
-      )}
-    </AnimatedTouchable>
+      <Animated.View
+        style={[
+          styles.button,
+          getButtonStyle(),
+          (disabled || loading) && styles.disabledButton,
+          { transform: [{ scale }] },
+          style,
+        ]}
+      >
+        {loading ? (
+          <ActivityIndicator color={variant === 'outline' ? colors.primary : colors.white} />
+        ) : (
+          <Text style={getTextStyle()}>{title}</Text>
+        )}
+      </Animated.View>
+    </TouchableOpacity>
   );
 };

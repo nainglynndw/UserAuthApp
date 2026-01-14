@@ -3,8 +3,8 @@ import {
   View,
   Text,
   Alert,
+  Animated,
 } from 'react-native';
-import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/Button/Button';
@@ -15,6 +15,18 @@ import { styles } from './HomeScreen.styles';
 export const HomeScreen: React.FC = () => {
   const { user, logout } = useAuth();
   const [loading, setLoading] = React.useState(false);
+
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    Animated.stagger(200, [
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
 
   const handleLogout = async () => {
     Alert.alert(
@@ -45,15 +57,15 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Animated.View entering={FadeIn.duration(600)} style={styles.header}>
+      <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
+        <View style={styles.header}>
           <View style={styles.avatarContainer}>
-          <Icon name="person" size={48} color={colors.primary} />
+            <Icon name="person" size={48} color={colors.primary} />
           </View>
           <Text style={styles.welcomeText}>Welcome!</Text>
-        </Animated.View>
+        </View>
 
-        <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.card}>
+        <View style={styles.card}>
           <View style={styles.infoRow}>
             <Icon name="person-outline" size={24} color={colors.primary} />
             <View style={styles.infoContent}>
@@ -71,18 +83,16 @@ export const HomeScreen: React.FC = () => {
               <Text style={styles.value}>{user?.email}</Text>
             </View>
           </View>
-        </Animated.View>
+        </View>
 
-        <Animated.View entering={FadeInDown.delay(400).duration(600)}>
-          <Button
-            title="Logout"
-            onPress={handleLogout}
-            loading={loading}
-            variant="outline"
-            style={styles.logoutButton}
-          />
-        </Animated.View>
-      </View>
+        <Button
+          title="Logout"
+          onPress={handleLogout}
+          loading={loading}
+          variant="outline"
+          style={styles.logoutButton}
+        />
+      </Animated.View>
     </SafeAreaView>
   );
 };

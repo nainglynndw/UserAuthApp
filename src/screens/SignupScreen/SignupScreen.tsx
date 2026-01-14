@@ -6,11 +6,8 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
-import Animated, {
-  FadeInDown,
-  FadeIn,
-} from 'react-native-reanimated';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
@@ -37,6 +34,24 @@ export const SignupScreen: React.FC<Props> = ({ navigation }) => {
     handleSignup,
   } = useSignupScreen();
 
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const slideAnim = React.useRef(new Animated.Value(50)).current;
+
+  React.useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -46,12 +61,20 @@ export const SignupScreen: React.FC<Props> = ({ navigation }) => {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <Animated.View entering={FadeIn.duration(600)} style={styles.header}>
+        <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
           <Text style={styles.title}>Create Account</Text>
           <Text style={styles.subtitle}>Sign up to get started</Text>
         </Animated.View>
 
-        <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.form}>
+        <Animated.View 
+          style={[
+            styles.form,
+            { 
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }]
+            }
+          ]}
+        >
           <Input
             label="Name"
             placeholder="Enter your name"
