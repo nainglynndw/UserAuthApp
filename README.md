@@ -1,97 +1,153 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# User Authentication App - Bare React Native
 
-# Getting Started
+A **production-grade** React Native authentication app built with **bare React Native CLI** (no Expo), featuring staff engineer-level architecture.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🏗️ Architecture
 
-## Step 1: Start Metro
+### ✅ Production Standards
+- **Bare React Native CLI** - No Expo, production-ready
+- **No Barrel Files** - Direct imports for better tree-shaking
+- **Separated Styles** - Each component has `.styles.ts` file
+- **Utils Layer** - Business logic separated from UI
+- **Custom Hooks** - Logic separated from presentation
+- **One Component Per File** - Single responsibility principle
+- **TypeScript** - Full type safety
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+### 📁 Structure
+```
+src/
+├── utils/              # Pure business logic
+│   ├── validation.ts
+│   ├── storage.ts
+│   └── auth.ts
+├── components/         # Reusable UI (no barrel files)
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   └── Button.styles.ts
+│   └── Input/
+│       ├── Input.tsx
+│       └── Input.styles.ts
+├── screens/            # Screen components with hooks
+│   ├── LoginScreen/
+│   │   ├── LoginScreen.tsx
+│   │   ├── LoginScreen.styles.ts
+│   │   └── useLoginScreen.ts
+│   ├── SignupScreen/
+│   │   ├── SignupScreen.tsx
+│   │   ├── SignupScreen.styles.ts
+│   │   └── useSignupScreen.ts
+│   └── HomeScreen/
+│       ├── HomeScreen.tsx
+│       └── HomeScreen.styles.ts
+├── navigation/
+│   ├── types.ts
+│   └── navigators/     # One navigator per file
+│       ├── AuthNavigator.tsx
+│       ├── AppNavigator.tsx
+│       └── RootNavigator.tsx
+├── context/
+│   └── AuthContext.tsx
+├── constants/
+│   └── theme.ts
+└── types/
+    └── index.ts
 ```
 
-## Step 2: Build and run your app
+## 🚀 Setup
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Prerequisites
+- Node.js 18+
+- Xcode (for iOS)
+- Android Studio (for Android)
+- CocoaPods (for iOS dependencies)
 
-### Android
+### Installation
 
-```sh
-# Using npm
-npm run android
+```bash
+# Install dependencies
+npm install
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+# iOS setup
+cd ios
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
-```
+cd ..
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# Run on iOS
 npm run ios
 
-# OR using Yarn
-yarn ios
+# Run on Android
+npm run android
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## ✨ Features
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- ✅ Login with email/password
+- ✅ Signup with validation
+- ✅ AsyncStorage persistence
+- ✅ Password visibility toggle
+- ✅ Form validation
+- ✅ Loading states
+- ✅ Modern dark theme UI
 
-## Step 3: Modify your app
+## 🧪 Test Credentials
 
-Now that you have successfully run the app, let's make changes!
+- **Email:** john@example.com
+- **Password:** password123
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 🎯 Staff Engineer Standards
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### No Expo
+- ❌ Removed all Expo dependencies
+- ✅ Using bare React Native CLI
+- ✅ Native modules configured properly
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### No Barrel Files
+- ❌ No `index.ts` exports
+- ✅ Direct imports only
+- ✅ Better tree-shaking
 
-## Congratulations! :tada:
+### Separated Concerns
+- ✅ Utils for business logic
+- ✅ Hooks for component logic
+- ✅ Styles in separate files
+- ✅ One component per file
 
-You've successfully run and modified your React Native App. :partying_face:
+## 📦 Dependencies
 
-### Now what?
+**Core:**
+- `react-native` 0.83.1
+- `typescript`
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+**Navigation:**
+- `@react-navigation/native`
+- `@react-navigation/native-stack`
+- `react-native-screens`
+- `react-native-safe-area-context`
 
-# Troubleshooting
+**Storage:**
+- `@react-native-async-storage/async-storage`
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+**Icons:**
+- `react-native-vector-icons` (not Expo!)
 
-# Learn More
+## 🔐 Security
 
-To learn more about React Native, take a look at the following resources:
+This is a demo with mock authentication. For production:
+- Replace `utils/auth.ts` with real API
+- Use JWT/OAuth
+- Never store passwords client-side
+- Implement proper session management
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 📊 Git
+
+```bash
+git add .
+git commit -m "Production-ready bare React Native auth app"
+git remote add origin <your-repo>
+git push -u origin main
+```
+
+---
+
+**Built with:** Bare React Native CLI 0.83.1, TypeScript, React Navigation, AsyncStorage
